@@ -9,7 +9,7 @@ DHLen = 32
 # For security reasons, dhLen must be 32 or greater.
 
 
-class KeyPair:
+class KeyPair(object):
     def __init__(self, key_pair):
         self.private_key = key_pair.private_key
         self.public_key = key_pair.public_key

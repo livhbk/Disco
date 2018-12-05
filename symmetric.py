@@ -2,7 +2,7 @@
 from github_com.mimoo/strobe-mirror/tree/master/python import Strobe
 
 #SymmetricState
-class SymmetricState:
+class SymmetricState(object):
 
     def __init__(self, protocol_name, is_keyed):
         self.strobeState = Strobe(protocol_name)
@@ -52,7 +52,7 @@ class SymmetricState:
         s2.ratchet(16)
         return s1, s2
 
-class HandshakeState:
+class HandshakeState(object):
 
     def __init__(self, handshake_pattern, initiator, prologue, s, e, rs, re):
 
