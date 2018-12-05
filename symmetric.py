@@ -1,15 +1,12 @@
 
 from github_com.mimoo/strobe-mirror/tree/master/python import Strobe
 
-#SymmetriccState
+#SymmetricState
 class SymmetricState:
 
-    def __init__(self):
-        self.strobeState = Strobe()
-        self.isKeyed = False
-
-    def initialize_symmetric(self, protocol_name):
+    def __init__(self, protocol_name, is_keyed):
         self.strobeState = Strobe(protocol_name)
+        self.isKeyed = is_keyed
 
     def mix_key(self, input_key_material):
         self.strobeState.ad(input_key_material)
@@ -54,3 +51,24 @@ class SymmetricState:
         s1.ratchet(16)
         s2.ratchet(16)
         return s1, s2
+
+class HandshakeState:
+
+    def __init__(self, handshake_pattern, initiator, prologue, s, e, rs, re):
+
+        patterns = ["NN", "KN", "NK", "KK", "NX", "KX", "XN", "IN", "XK", "IK", "XX", "IX"]
+        if handshake_pattern not in patterns:
+            print ("disco: the supplied handshakePattern does not exist")
+        else:
+            protocol_name = "Noise_" + handshake_pattern + "_25519_STROBEv1.0.2"
+            self.symmetricState = SymmetricState(protocol_name, None)
+
+        self.symmetricState.mix_hash(prologue)
+
+#need to implement checks
+        self.s = s
+        self.e = e
+        self.rs = rs
+        self.re = re
+
+        self.initiator = initiator

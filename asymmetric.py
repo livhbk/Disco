@@ -10,9 +10,9 @@ DHLen = 32
 
 
 class KeyPair:
-    def __init__(self, private_key, public_key):
-        self.private_key = private_key
-        self.public_key = public_key
+    def __init__(self, key_pair):
+        self.private_key = key_pair.private_key
+        self.public_key = key_pair.public_key
 
 
 def generate_key_pair():
